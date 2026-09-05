@@ -1,0 +1,804 @@
+<!doctype html>
+<html lang="ru" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#090909" />
+    <meta name="description" content="Gloss Technology — детейлинг и профессиональная защита автомобилей в Ташкенте. Официальный дистрибьютор XPEL в Узбекистане." />
+    <title>Gloss Technology — детейлинг и XPEL в Ташкенте</title>
+    <link rel="icon" href="assets/gt-mark-dark.png" />
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f4f4f2;
+        --surface: #ffffff;
+        --surface-2: #e9e9e6;
+        --text: #121212;
+        --muted: #666663;
+        --line: rgba(18, 18, 18, 0.13);
+        --red: #ed3237;
+        --red-deep: #c61f25;
+        --inverse: #ffffff;
+        --header: rgba(244, 244, 242, 0.86);
+        --shadow: 0 24px 70px rgba(22, 22, 22, 0.12);
+      }
+
+      html[data-theme="dark"] {
+        color-scheme: dark;
+        --bg: #090909;
+        --surface: #111111;
+        --surface-2: #181818;
+        --text: #f4f4f1;
+        --muted: #9b9b97;
+        --line: rgba(255, 255, 255, 0.12);
+        --red: #ed3237;
+        --red-deep: #b91d22;
+        --inverse: #ffffff;
+        --header: rgba(9, 9, 9, 0.83);
+        --shadow: 0 28px 80px rgba(0, 0, 0, 0.42);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        min-width: 320px;
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Google Sans", "Product Sans", "Google Sans Text", "Avenir Next", Avenir, Montserrat, Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        transition: background-color 220ms ease, color 220ms ease;
+      }
+      button, input, select { font: inherit; }
+      button, a { -webkit-tap-highlight-color: transparent; }
+      a { color: inherit; text-decoration: none; }
+      img { display: block; max-width: 100%; }
+      .wrap { width: min(1180px, calc(100% - 48px)); margin-inline: auto; }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0 0 18px;
+        color: var(--red);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+      .eyebrow::before { content: ""; width: 28px; height: 2px; background: currentColor; }
+      h1, h2, h3, p { margin-top: 0; }
+      h1, h2, h3 { letter-spacing: -0.045em; }
+      h2 { max-width: 800px; margin-bottom: 20px; font-size: clamp(2.25rem, 5.2vw, 4.6rem); line-height: 1.06; }
+      .lead { max-width: 650px; color: var(--muted); font-size: clamp(1rem, 1.5vw, 1.22rem); }
+      .section { padding: clamp(72px, 8.5vw, 124px) 0; }
+      .section-head { display: flex; align-items: end; justify-content: space-between; gap: 36px; margin-bottom: 40px; }
+      .section-head .lead { margin-bottom: 5px; }
+
+      .site-header {
+        position: fixed;
+        z-index: 50;
+        top: 0;
+        left: 0;
+        right: 0;
+        border-bottom: 1px solid var(--line);
+        background: var(--header);
+        backdrop-filter: blur(18px);
+      }
+      .header-row { height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+      .brand { display: inline-flex; align-items: center; gap: 12px; flex: 0 0 auto; }
+      .brand-mark { position: relative; width: 47px; height: 34px; }
+      .brand-mark img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+      .mark-dark { display: none; }
+      html[data-theme="light"] .mark-dark { display: block; }
+      html[data-theme="light"] .mark-light { display: none; }
+      .brand-copy { display: grid; line-height: 1.02; }
+      .brand-copy strong { font-size: 0.98rem; letter-spacing: -0.03em; }
+      .brand-copy span { color: var(--muted); font-size: 0.67rem; letter-spacing: 0.08em; text-transform: uppercase; }
+      .nav { display: flex; align-items: center; gap: clamp(18px, 2.5vw, 34px); }
+      .nav a { color: var(--muted); font-size: 0.9rem; transition: color 160ms ease; }
+      .nav a:hover { color: var(--text); }
+      .header-actions { display: flex; align-items: center; gap: 8px; flex: 0 0 auto; }
+      .control {
+        min-height: 44px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--text);
+        cursor: pointer;
+      }
+      .lang-select {
+        flex: 0 0 76px;
+        width: 76px;
+        min-width: 76px;
+        height: 44px;
+        padding: 0 28px 0 14px;
+        -webkit-appearance: none;
+        appearance: none;
+        font-size: 1rem;
+        font-weight: 600;
+        line-height: 1.25;
+        text-align: left;
+        text-overflow: clip;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='m3 4.5 3 3 3-3' fill='none' stroke='%23f5f5f3' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        background-size: 12px;
+      }
+      .theme-toggle { width: 42px; display: grid; place-items: center; }
+      .theme-toggle svg { width: 17px; height: 17px; }
+      .sun { display: none; }
+      html[data-theme="light"] .sun { display: block; }
+      html[data-theme="light"] .moon { display: none; }
+      .menu-toggle { display: none; flex: 0 0 44px; width: 44px; align-content: center; justify-items: center; gap: 5px; }
+      .menu-toggle span { width: 17px; height: 1.5px; background: currentColor; transition: transform 180ms ease; }
+      .header-cta { padding: 11px 17px; border-radius: 999px; background: var(--red); color: white; font-size: 0.88rem; font-weight: 700; }
+
+      .hero {
+        position: relative;
+        min-height: 100svh;
+        display: grid;
+        align-items: end;
+        overflow: hidden;
+        color: white;
+        background: #080808;
+      }
+      .hero-media { position: absolute; inset: 0; }
+      .hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 58% center; }
+      .hero-media::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(90deg, rgba(6,6,6,.97) 0%, rgba(6,6,6,.74) 39%, rgba(6,6,6,.13) 73%),
+          linear-gradient(0deg, rgba(6,6,6,.92) 0%, transparent 46%);
+      }
+      .hero-grid {
+        position: relative;
+        z-index: 2;
+        padding-top: 150px;
+        padding-bottom: clamp(66px, 9vw, 110px);
+        display: grid;
+        grid-template-columns: minmax(0, 780px) 1fr;
+        align-items: end;
+        gap: 40px;
+      }
+      .hero-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 24px;
+        padding: 8px 12px 8px 9px;
+        border: 1px solid rgba(255,255,255,.2);
+        border-radius: 999px;
+        background: rgba(0,0,0,.34);
+        backdrop-filter: blur(10px);
+        color: rgba(255,255,255,.84);
+        font-size: .76rem;
+        letter-spacing: .075em;
+        text-transform: uppercase;
+      }
+      .hero-kicker b { display: inline-grid; place-items: center; width: 25px; height: 25px; border-radius: 50%; background: var(--red); color: white; }
+      .hero h1 { max-width: 820px; margin-bottom: 25px; font-size: clamp(3.25rem, 7.5vw, 7.35rem); line-height: .86; }
+      .hero h1 em { color: var(--red); font-style: normal; }
+      .hero-text { max-width: 610px; margin-bottom: 34px; color: rgba(255,255,255,.69); font-size: clamp(1rem, 1.7vw, 1.22rem); }
+      .cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
+      .button {
+        min-height: 54px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 0 22px;
+        border: 1px solid transparent;
+        border-radius: 999px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 160ms ease, background-color 160ms ease;
+      }
+      .button:hover { transform: translateY(-2px); }
+      .button-primary { background: var(--red); color: white; }
+      .button-primary:hover { background: var(--red-deep); }
+      .button-ghost { border-color: rgba(255,255,255,.28); background: rgba(255,255,255,.06); color: white; }
+      .button-dark { background: var(--text); color: var(--bg); }
+      .button-line { border-color: var(--line); background: transparent; }
+      .arrow { font-size: 1.16rem; }
+      .hero-side { justify-self: end; width: min(100%, 260px); border-top: 1px solid rgba(255,255,255,.25); padding-top: 18px; color: rgba(255,255,255,.68); }
+      .hero-side b { display: block; margin-bottom: 5px; color: white; font-size: 1.15rem; }
+
+      .proof-strip { border-bottom: 1px solid var(--line); background: var(--surface); }
+      .proof-grid { display: grid; grid-template-columns: 1.35fr repeat(3, 1fr); }
+      .proof-item { min-height: 132px; display: flex; flex-direction: column; justify-content: center; padding: 24px 28px; border-right: 1px solid var(--line); }
+      .proof-item:first-child { padding-left: 0; }
+      .proof-item:last-child { border-right: 0; }
+      .proof-item strong { margin-bottom: 3px; font-size: clamp(1.25rem, 2.3vw, 2rem); letter-spacing: -0.04em; }
+      .proof-item span { color: var(--muted); font-size: .86rem; }
+      .proof-xpel { flex-direction: row; align-items: center; justify-content: flex-start; gap: 18px; }
+      .proof-xpel img { width: 116px; mix-blend-mode: multiply; }
+      html[data-theme="dark"] .proof-xpel img { filter: invert(1); mix-blend-mode: screen; }
+
+      .services-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
+      .service-card {
+        position: relative;
+        min-height: 310px;
+        grid-column: span 4;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+        padding: 28px;
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        background: var(--surface);
+        transition: transform 220ms ease, border-color 220ms ease;
+      }
+      .service-card:hover { transform: translateY(-5px); border-color: rgba(237,50,55,.6); }
+      .service-card.featured { grid-column: span 8; background: var(--red); color: white; border-color: transparent; }
+      .service-number { color: var(--muted); font-size: .78rem; letter-spacing: .12em; }
+      .featured .service-number { color: rgba(255,255,255,.7); }
+      .service-card h3 { max-width: 470px; margin-bottom: 12px; font-size: clamp(1.7rem, 3.2vw, 3rem); line-height: 1; }
+      .service-card:not(.featured) h3 { font-size: 1.8rem; }
+      .service-card p { max-width: 470px; margin: 0; color: var(--muted); }
+      .featured p { color: rgba(255,255,255,.8); }
+      .service-link { align-self: flex-start; margin-top: 28px; font-weight: 700; }
+
+      .xpel-section { position: relative; overflow: hidden; background: #0a0a0a; color: white; }
+      .xpel-section::after { content: "X"; position: absolute; right: -3vw; bottom: -22vw; color: rgba(255,255,255,.027); font-size: 70vw; line-height: 1; font-weight: 900; pointer-events: none; }
+      .xpel-grid { position: relative; z-index: 2; display: grid; grid-template-columns: .75fr 1.25fr; gap: clamp(56px, 10vw, 140px); align-items: start; }
+      .xpel-logo-box { min-height: 370px; display: grid; place-items: center; padding: 50px; background: white; }
+      .xpel-logo-box img { width: 82%; }
+      .xpel-copy h2 { margin-bottom: 25px; }
+      .xpel-copy .lead { color: rgba(255,255,255,.62); }
+      .feature-list { display: grid; grid-template-columns: repeat(2, 1fr); margin-top: 46px; border-top: 1px solid rgba(255,255,255,.16); }
+      .feature { padding: 22px 20px 22px 0; border-bottom: 1px solid rgba(255,255,255,.16); }
+      .feature:nth-child(odd) { border-right: 1px solid rgba(255,255,255,.16); }
+      .feature:nth-child(even) { padding-left: 20px; }
+      .feature strong { display: block; margin-bottom: 5px; font-size: 1.03rem; }
+      .feature span { color: rgba(255,255,255,.53); font-size: .87rem; }
+
+      .packages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+      .package { min-height: 430px; display: flex; flex-direction: column; padding: 28px; border: 1px solid var(--line); background: var(--surface); }
+      .package-tag { align-self: flex-start; padding: 7px 10px; border-radius: 999px; background: var(--surface-2); color: var(--muted); font-size: .72rem; letter-spacing: .07em; text-transform: uppercase; }
+      .package.recommended { border-color: var(--red); }
+      .package.recommended .package-tag { background: var(--red); color: white; }
+      .coverage { display: flex; align-items: end; gap: 6px; height: 86px; margin: 38px 0 30px; }
+      .coverage span { flex: 1; min-width: 9px; height: 34%; background: var(--surface-2); }
+      .coverage span.on { background: var(--red); }
+      .coverage span:nth-child(2), .coverage span:nth-child(5) { height: 68%; }
+      .coverage span:nth-child(3), .coverage span:nth-child(4) { height: 100%; }
+      .package h3 { margin-bottom: 14px; font-size: 2rem; line-height: 1; }
+      .package p { color: var(--muted); }
+      .package ul { margin: 4px 0 30px; padding: 0; list-style: none; color: var(--muted); }
+      .package li { padding: 10px 0; border-bottom: 1px solid var(--line); }
+      .package .button { margin-top: auto; }
+
+      .project { padding: clamp(70px, 9vw, 120px) 0; background: var(--surface); }
+      .project-card { position: relative; min-height: min(74vw, 780px); overflow: hidden; background: #090909; color: white; }
+      .project-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+      .project-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.86), transparent 62%); }
+      .project-meta { position: absolute; z-index: 2; left: clamp(24px, 5vw, 62px); right: clamp(24px, 5vw, 62px); bottom: clamp(26px, 5vw, 60px); display: flex; align-items: end; justify-content: space-between; gap: 40px; }
+      .project-meta h2 { max-width: 730px; margin-bottom: 12px; }
+      .project-meta p { margin: 0; color: rgba(255,255,255,.67); }
+      .project-index { flex: 0 0 auto; font-size: clamp(3rem, 8vw, 7rem); line-height: .8; color: var(--red); font-weight: 700; letter-spacing: -.08em; }
+
+      .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); }
+      .step { position: relative; min-height: 250px; padding: 28px 24px 24px 0; border-right: 1px solid var(--line); }
+      .step:not(:first-child) { padding-left: 24px; }
+      .step:last-child { border-right: 0; }
+      .step-num { display: inline-flex; margin-bottom: 62px; color: var(--red); font-weight: 700; }
+      .step h3 { margin-bottom: 10px; font-size: 1.4rem; }
+      .step p { margin: 0; color: var(--muted); font-size: .91rem; }
+
+      .reviews-section { background: var(--red); color: white; }
+      .reviews-grid { display: grid; grid-template-columns: .72fr 1.28fr; gap: clamp(50px, 9vw, 130px); }
+      .rating strong { display: block; font-size: clamp(5rem, 11vw, 10rem); line-height: .75; letter-spacing: -.08em; }
+      .stars { margin: 26px 0 8px; font-size: 1.2rem; letter-spacing: .18em; }
+      .rating span { color: rgba(255,255,255,.72); }
+      .quote { align-self: center; }
+      .quote blockquote { margin: 0 0 30px; font-size: clamp(1.7rem, 3.6vw, 3.35rem); line-height: 1.12; letter-spacing: -.04em; }
+      .quote cite { font-style: normal; color: rgba(255,255,255,.72); }
+
+      .contact-grid { display: grid; grid-template-columns: .82fr 1.18fr; gap: clamp(50px, 10vw, 140px); }
+      .contact-lines { margin-top: 48px; border-top: 1px solid var(--line); }
+      .contact-line { display: grid; grid-template-columns: 110px 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+      .contact-line span:first-child { color: var(--muted); font-size: .85rem; }
+      .contact-line a:hover { color: var(--red); }
+      footer { padding: 36px 0 96px; border-top: 1px solid var(--line); }
+      .footer-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; color: var(--muted); font-size: .82rem; }
+      .footer-links { display: flex; gap: 22px; }
+
+      .mobile-actions { display: none; }
+      .reveal { opacity: 0; transform: translateY(18px); transition: opacity 500ms ease, transform 500ms ease; }
+      .reveal.visible { opacity: 1; transform: none; }
+
+      @media (max-width: 980px) {
+        .nav { display: none; position: fixed; inset: 78px 0 auto; padding: 20px 24px 28px; background: var(--surface); border-bottom: 1px solid var(--line); }
+        .nav.open { display: grid; gap: 8px; }
+        .nav a { padding: 12px 0; color: var(--text); font-size: 1.05rem; }
+        .menu-toggle { display: grid; }
+        .header-cta { display: none; }
+        .hero-grid { grid-template-columns: 1fr; }
+        .hero-side { justify-self: start; width: auto; max-width: 420px; }
+        .proof-grid { grid-template-columns: repeat(2, 1fr); }
+        .proof-item, .proof-item:first-child { padding-left: 24px; border-bottom: 1px solid var(--line); }
+        .proof-item:nth-child(2) { border-right: 0; }
+        .service-card, .service-card.featured { grid-column: span 6; }
+        .xpel-grid, .reviews-grid, .contact-grid { grid-template-columns: 1fr; }
+        .xpel-logo-box { min-height: 250px; }
+        .packages-grid { grid-template-columns: 1fr; }
+        .package { min-height: 0; }
+        .process-grid { grid-template-columns: repeat(2, 1fr); }
+        .step:nth-child(2) { border-right: 0; }
+        .step { border-bottom: 1px solid var(--line); }
+      }
+
+      @media (max-width: 640px) {
+        .wrap { width: min(100% - 30px, 1180px); }
+        .header-row { height: 70px; }
+        .brand-copy span { display: none; }
+        .hero { min-height: 820px; }
+        .hero-media img { object-position: 61% center; }
+        .hero-media::after { background: linear-gradient(0deg, rgba(6,6,6,.97) 0%, rgba(6,6,6,.58) 64%, rgba(6,6,6,.3)); }
+        .hero-grid { padding-top: 120px; padding-bottom: 38px; }
+        .hero h1 { font-size: clamp(3.2rem, 16vw, 5.3rem); }
+        .hero-kicker { max-width: 100%; font-size: .65rem; }
+        .cta-row .button { width: 100%; }
+        .hero-side { margin-top: 12px; }
+        .proof-grid { grid-template-columns: 1fr 1fr; }
+        .proof-item { min-height: 112px; padding: 18px 14px !important; }
+        .proof-xpel { grid-column: 1 / -1; border-right: 0; }
+        .proof-item:nth-child(3) { border-right: 1px solid var(--line); }
+        .section-head { display: block; }
+        .services-grid { display: grid; grid-template-columns: 1fr; }
+        .service-card, .service-card.featured { grid-column: 1; min-height: 280px; }
+        .feature-list { grid-template-columns: 1fr; }
+        .feature:nth-child(odd) { border-right: 0; }
+        .feature:nth-child(even) { padding-left: 0; }
+        .xpel-logo-box { min-height: 210px; }
+        .project-card { min-height: 620px; }
+        .project-card img { object-position: 64% center; }
+        .project-meta { display: block; }
+        .project-index { margin-top: 30px; }
+        .process-grid { grid-template-columns: 1fr; }
+        .step, .step:not(:first-child) { min-height: 0; padding: 24px 0; border-right: 0; }
+        .step-num { margin-bottom: 34px; }
+        .contact-line { grid-template-columns: 1fr; gap: 3px; }
+        .footer-row { align-items: flex-start; flex-direction: column; }
+        .mobile-actions {
+          position: fixed;
+          z-index: 45;
+          left: 12px;
+          right: 12px;
+          bottom: 12px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 8px;
+          padding: 8px;
+          border: 1px solid var(--line);
+          border-radius: 999px;
+          background: var(--header);
+          backdrop-filter: blur(16px);
+          box-shadow: var(--shadow);
+        }
+        .mobile-actions a { min-height: 46px; display: grid; place-items: center; border-radius: 999px; font-weight: 700; font-size: .86rem; }
+        .mobile-actions a:first-child { background: var(--surface); }
+        .mobile-actions a:last-child { background: var(--red); color: white; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+        .reveal { opacity: 1; transform: none; }
+      }
+    </style>
+    <link rel="stylesheet" href="assets/v2.css" />
+  </head>
+  <body>
+    <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+    <div class="cursor-crosshair" id="cursor" aria-hidden="true"><span class="cursor-ring"></span><span class="cursor-coords" id="cursor-coords">X 000 · Y 000</span></div>
+    <header class="site-header">
+      <div class="wrap header-row">
+        <div class="brand-cluster">
+          <a class="brand" href="#top" aria-label="Gloss Technology">
+            <span class="brand-mark">
+              <img class="mark-light" src="assets/gt-mark-light.png" alt="" />
+              <img class="mark-dark" src="assets/gt-mark-dark.png" alt="" />
+            </span>
+            <span class="brand-copy"><strong>Gloss Technology</strong><span>Detailing Studio</span></span>
+          </a>
+          <a class="partner-lockup interactive" href="https://www.xpel.com/installers/Uzbekistan/Tashkent/Tashkent" target="_blank" rel="noreferrer" aria-label="Gloss Technology на XPEL.com">
+            <img src="assets/xpel-logo.jpg" alt="XPEL" /><span data-i18n="brand.partner">Официальный дистрибьютор</span>
+          </a>
+        </div>
+        <nav class="nav" id="main-nav" aria-label="Основная навигация">
+          <a href="#services" data-i18n="nav.services">Услуги</a>
+          <a href="#xpel">XPEL</a>
+          <a href="#packages" data-i18n="nav.packages">Пакеты защиты</a>
+          <a href="#projects" data-i18n="nav.projects">Проекты</a>
+          <a href="#reviews" data-i18n="nav.reviews">Отзывы</a>
+          <a href="#location" data-i18n="nav.location">Адрес</a>
+          <a href="#contact" data-i18n="nav.contacts">Контакты</a>
+        </nav>
+        <div class="header-actions">
+          <select class="control lang-select" id="language" aria-label="Выбрать язык">
+            <option value="ru">RU</option>
+            <option value="uz">UZ</option>
+            <option value="en">EN</option>
+          </select>
+          <button class="control theme-toggle" id="theme-toggle" type="button" aria-label="Переключить тему">
+            <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2Z"/></svg>
+            <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="3.7"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          </button>
+          <button class="control menu-toggle" id="menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false"><span></span><span></span></button>
+          <a class="header-cta interactive magnetic" href="https://t.me/glosstechnology" target="_blank" rel="noreferrer" data-i18n="common.calculate">Записаться</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-media"><img src="assets/hero-detailing.png" alt="Мастер наносит защитную плёнку на автомобиль в детейлинг-студии" /></div>
+        <div class="hero-scan" aria-hidden="true"></div>
+        <div class="wrap hero-grid">
+          <div>
+            <div class="hero-partner reveal">
+              <a class="hero-xpel interactive" href="https://www.xpel.com/installers/Uzbekistan/Tashkent/Tashkent" target="_blank" rel="noreferrer" aria-label="Gloss Technology на XPEL.com"><img src="assets/xpel-logo-transparent.png" alt="XPEL" /></a>
+              <div class="hero-kicker-v2"><b>VERIFIED PARTNER</b><span data-i18n="hero.kicker">Официальный дистрибьютор XPEL в Узбекистане</span></div>
+            </div>
+            <h1 class="reveal" style="--delay:80ms" data-i18n-html="hero.title">Защищаем автомобиль.<br><em>Не меняя его.</em></h1>
+            <p class="hero-text reveal" style="--delay:150ms" data-i18n="hero.text">Оригинальные материалы XPEL, профессиональная установка и контроль качества на каждом этапе — в Ташкенте.</p>
+            <div class="cta-row reveal" style="--delay:220ms">
+              <a class="button button-primary interactive magnetic" href="https://t.me/glosstechnology" target="_blank" rel="noreferrer"><span data-i18n="common.calculate">Записаться</span><span class="arrow">↗</span></a>
+              <a class="button button-ghost interactive magnetic" href="#projects" data-i18n="common.projects">Посмотреть проекты</a>
+              <a class="hero-instagram interactive" href="https://www.instagram.com/glosstechnology/" target="_blank" rel="noreferrer" data-i18n="common.instagram">Instagram GT ↗</a>
+            </div>
+          </div>
+          <div class="hero-side reveal" style="--delay:280ms">
+            <b>+998 94 418 11 11</b>
+            <span data-i18n="hero.side">Ташкент · ежедневно 10:00–18:00</span>
+            <small data-i18n="hero.official">Официальная дистрибуция XPEL для Узбекистана</small>
+          </div>
+        </div>
+      </section>
+
+      <div class="marquee" aria-hidden="true"><div class="marquee-track"><span>Gloss Technology × XPEL · Official Distributor Uzbekistan</span><span>Paint Protection Film · Window Film · Ceramic Coating</span><span>Gloss Technology × XPEL · Official Distributor Uzbekistan</span><span>Paint Protection Film · Window Film · Ceramic Coating</span></div></div>
+
+      <section class="proof-strip" aria-label="Факты о студии">
+        <div class="wrap proof-grid">
+          <a class="proof-item proof-xpel interactive" href="https://www.xpel.com/installers/Uzbekistan/Tashkent/Tashkent" target="_blank" rel="noreferrer"><span class="verified-dot"></span><img src="assets/xpel-logo.jpg" alt="XPEL" /><span data-i18n="proof.distributor">Официальный дистрибьютор в Узбекистане</span></a>
+          <div class="proof-item"><strong data-count="5" data-decimals="1">5.0</strong><span data-i18n="proof.rating">рейтинг на Яндекс Картах</span></div>
+          <div class="proof-item"><strong data-count="83">83</strong><span data-i18n="proof.reviews">оценки клиентов</span></div>
+          <div class="proof-item"><strong data-count="17.5" data-decimals="1" data-suffix="K">17.5K</strong><span data-i18n="proof.community">подписчиков в Instagram</span></div>
+        </div>
+      </section>
+
+      <section class="section" id="services">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <div><p class="eyebrow" data-i18n="services.eyebrow">Что мы защищаем</p><h2 data-i18n="services.title">Технологии для каждой поверхности</h2></div>
+            <p class="lead" data-i18n="services.lead">От незаметной защиты кузова до восстановления глубины цвета — подбираем решение под автомобиль и сценарий эксплуатации.</p>
+          </div>
+          <div class="services-grid" id="services-carousel" data-mobile-carousel tabindex="0" role="region" aria-roledescription="carousel" data-i18n-aria="carousel.services">
+            <article class="service-card featured reveal tilt"><span class="service-number">01 · XPEL</span><div><h3 data-i18n="services.ppf.title">Защитная плёнка PPF</h3><p data-i18n="services.ppf.text">Прозрачный самовосстанавливающийся барьер от сколов, царапин и дорожного воздействия.</p><a class="service-link interactive" href="#xpel"><span data-i18n="common.more">Подробнее</span> ↗</a></div></article>
+            <article class="service-card reveal tilt"><span class="service-number">02 · XPEL PRIME</span><div><h3 data-i18n="services.tint.title">Тонировка</h3><p data-i18n="services.tint.text">Защита от жары и ультрафиолета без потери оптической прозрачности.</p></div></article>
+            <article class="service-card reveal tilt"><span class="service-number">03 · FUSION PLUS</span><div><h3 data-i18n="services.ceramic.title">Керамика</h3><p data-i18n="services.ceramic.text">Глубокий блеск, гидрофобный эффект и более простой регулярный уход.</p></div></article>
+            <article class="service-card reveal tilt"><span class="service-number">04</span><div><h3 data-i18n="services.polish.title">Полировка</h3><p data-i18n="services.polish.text">Коррекция дефектов ЛКП и восстановление чистоты отражения.</p></div></article>
+            <article class="service-card reveal tilt"><span class="service-number">05</span><div><h3 data-i18n="services.interior.title">Защита салона</h3><p data-i18n="services.interior.text">Плёнки и покрытия для экранов, декоративных панелей, кожи и текстиля.</p></div></article>
+          </div>
+          <div class="mobile-carousel-nav" data-mobile-carousel-nav="services-carousel">
+            <span class="mobile-carousel-count" aria-live="polite"><strong>01</strong><i>/ 05</i></span>
+            <span class="mobile-carousel-progress" aria-hidden="true"><i></i></span>
+            <span class="mobile-carousel-arrows"><button type="button" data-mobile-carousel-dir="-1" data-i18n-aria="carousel.previous" aria-label="Предыдущая карточка">←</button><button type="button" data-mobile-carousel-dir="1" data-i18n-aria="carousel.next" aria-label="Следующая карточка">→</button></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section xpel-section" id="xpel">
+        <div class="wrap xpel-grid">
+          <a class="xpel-logo-box reveal interactive" href="https://www.xpel.com/installers/Uzbekistan/Tashkent/Tashkent" target="_blank" rel="noreferrer" aria-label="Подтверждение статуса на XPEL.com"><img src="assets/xpel-logo.jpg" alt="XPEL" /></a>
+          <div class="xpel-copy reveal">
+            <p class="eyebrow" data-i18n="xpel.eyebrow">Статус подтверждён XPEL</p>
+            <h2 data-i18n="xpel.title">Официальный дистрибьютор XPEL в Узбекистане</h2>
+            <p class="lead" data-i18n="xpel.text">Gloss Technology официально представляет технологии защиты XPEL в стране: оригинальная продукция, правильный подбор и установка по стандартам бренда.</p>
+            <div class="feature-list">
+              <div class="feature"><strong>ULTIMATE PLUS™</strong><span data-i18n="xpel.ultimate">Глянцевая защита кузова</span></div>
+              <div class="feature"><strong>STEALTH™</strong><span data-i18n="xpel.stealth">Сатиновый финиш и защита</span></div>
+              <div class="feature"><strong>PRIME™</strong><span data-i18n="xpel.prime">Комфорт и защита стёкол</span></div>
+              <div class="feature"><strong>FUSION PLUS™</strong><span data-i18n="xpel.fusion">Керамическое покрытие</span></div>
+            </div>
+            <div class="cta-row" style="margin-top:34px"><a class="button button-primary interactive magnetic" href="https://t.me/glosstechnology" target="_blank" rel="noreferrer"><span data-i18n="common.calculate">Записаться</span><span class="arrow">↗</span></a><a class="button button-line interactive magnetic" href="https://www.xpel.com/installers/Uzbekistan/Tashkent/Tashkent" target="_blank" rel="noreferrer" data-i18n="xpel.verify">Проверить на XPEL.com</a></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="packages">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <div><p class="eyebrow" data-i18n="packages.eyebrow">Пакеты PPF</p><h2 data-i18n="packages.title">Выберите уровень защиты</h2></div>
+            <p class="lead" data-i18n="packages.lead">От самых уязвимых зон до полного кузова — без компромиссов в материале и установке.</p>
+          </div>
+          <div class="packages-grid" id="packages-carousel" data-mobile-carousel tabindex="0" role="region" aria-roledescription="carousel" data-i18n-aria="carousel.packages">
+            <article class="package reveal">
+              <span class="package-tag" data-i18n="packages.one.tag">Точечная защита</span>
+              <div class="coverage" aria-hidden="true"><span class="on"></span><span></span><span></span><span></span><span></span><span></span></div>
+              <h3 data-i18n="packages.one.title">Зоны риска</h3>
+              <p data-i18n="packages.one.text">Для элементов, которые первыми принимают дорожные повреждения.</p>
+              <ul><li data-i18n="packages.one.a">Передний бампер</li><li data-i18n="packages.one.b">Оптика и зеркала</li></ul>
+              <a class="button button-line interactive magnetic" href="https://t.me/glosstechnology" target="_blank" rel="noreferrer" data-i18n="common.request">Записаться</a>
+            </article>
+            <article class="package recommended reveal">
+              <span class="package-tag" data-i18n="packages.two.tag">Оптимальный выбор</span>
+              <div class="coverage" aria-hidden="true"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span><span></span></div>
+              <h3 data-i18n="packages.two.title">Полный фронт</h3>
+              <p data-i18n="packages.two.text">Комплексная защита всей передней части автомобиля.</p>
+              <ul><li data-i18n="packages.two.a">Бампер, капот и крылья</li><li data-i18n="packages.two.b">Оптика и зеркала</li></ul>
+              <a class="button button-primary interactive magnetic" href="https://t.me/glosstechnology" target="_blank" rel="noreferrer" data-i18n="common.request">Записаться</a>
+            </article>
+            <article class="package reveal">
+              <span class="package-tag" data-i18n="packages.three.tag">Максимум</span>
+              <div class="coverage" aria-hidden="true"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div>
+              <h3 data-i18n="packages.three.title">Весь кузов</h3>
+              <p data-i18n="packages.three.text">Полная защита окрашенных элементов с единым визуальным финишем.</p>
+              <ul><li data-i18n="packages.three.a">Все внешние панели</li><li data-i18n="packages.three.b">Глянцевый или сатиновый финиш</li></ul>
+              <a class="button button-line interactive magnetic" href="https://t.me/glosstechnology" target="_blank" rel="noreferrer" data-i18n="common.request">Записаться</a>
+            </article>
+          </div>
+          <div class="mobile-carousel-nav" data-mobile-carousel-nav="packages-carousel">
+            <span class="mobile-carousel-count" aria-live="polite"><strong>01</strong><i>/ 03</i></span>
+            <span class="mobile-carousel-progress" aria-hidden="true"><i></i></span>
+            <span class="mobile-carousel-arrows"><button type="button" data-mobile-carousel-dir="-1" data-i18n-aria="carousel.previous" aria-label="Предыдущая карточка">←</button><button type="button" data-mobile-carousel-dir="1" data-i18n-aria="carousel.next" aria-label="Следующая карточка">→</button></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section projects-section" id="projects">
+        <div class="wrap">
+          <div class="section-head project-heading reveal">
+            <div><p class="eyebrow" data-i18n="projects.eyebrow">Избранные работы</p><h2 data-i18n-html="projects.title"><span>Проекты</span> <span class="brand-name">Gloss Technology</span></h2></div>
+            <div class="project-heading-side"><a class="instagram-inline interactive" href="https://www.instagram.com/glosstechnology/" target="_blank" rel="noreferrer" data-i18n="projects.instagram">Все проекты в Instagram ↗</a></div>
+          </div>
+          <div class="project-carousel reveal" aria-roledescription="carousel" aria-label="Проекты Gloss Technology">
+            <div class="project-track" id="project-track" tabindex="0">
+              <article class="project-slide is-active" data-project-slide aria-label="1 из 3">
+                <div class="project-slide-media"><img src="assets/project-ppf.webp" alt="Оклейка чёрного автомобиля защитной плёнкой" /></div>
+                <div class="project-slide-panel"><div class="project-slide-top"><span>PROJECT 01</span><b>XPEL · PPF</b></div><div class="project-slide-copy"><span class="project-product">ULTIMATE PLUS™</span><h3 data-i18n="projects.one.title">Полная защита кузова</h3><p data-i18n="projects.one.text">XPEL ULTIMATE PLUS · прозрачный глянец</p><a class="project-slide-link interactive" href="https://www.instagram.com/glosstechnology/" target="_blank" rel="noreferrer">Instagram ↗</a></div></div>
+              </article>
+              <article class="project-slide" data-project-slide aria-label="2 из 3">
+                <div class="project-slide-media"><img src="assets/project-prime.webp" alt="Установка тонировочной плёнки на белый автомобиль" /></div>
+                <div class="project-slide-panel"><div class="project-slide-top"><span>PROJECT 02</span><b>XPEL · PRIME</b></div><div class="project-slide-copy"><span class="project-product">PRIME™</span><h3 data-i18n="projects.two.title">Тонировка без искажений</h3><p data-i18n="projects.two.text">XPEL PRIME · защита от тепла и UV</p><a class="project-slide-link interactive" href="https://www.instagram.com/glosstechnology/" target="_blank" rel="noreferrer">Instagram ↗</a></div></div>
+              </article>
+              <article class="project-slide" data-project-slide aria-label="3 из 3">
+                <div class="project-slide-media"><img src="assets/project-fusion.webp" alt="Красный автомобиль после нанесения керамического покрытия" /></div>
+                <div class="project-slide-panel"><div class="project-slide-top"><span>PROJECT 03</span><b>XPEL · FUSION</b></div><div class="project-slide-copy"><span class="project-product">FUSION PLUS™</span><h3 data-i18n="projects.three.title">Глубокий цвет и гидрофоб</h3><p data-i18n="projects.three.text">XPEL FUSION PLUS · керамическое покрытие</p><a class="project-slide-link interactive" href="https://www.instagram.com/glosstechnology/" target="_blank" rel="noreferrer">Instagram ↗</a></div></div>
+              </article>
+            </div>
+            <div class="project-toolbar">
+              <div class="project-counter" aria-live="polite"><strong id="project-current">01</strong><span>/ 03</span></div>
+              <div class="project-progress" aria-hidden="true"><span id="project-progress-fill"></span></div>
+              <div class="project-arrows"><button class="project-arrow interactive" type="button" data-project-dir="-1" aria-label="Предыдущий проект">←</button><button class="project-arrow interactive" type="button" data-project-dir="1" aria-label="Следующий проект">→</button></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="process">
+        <div class="wrap">
+          <div class="section-head reveal"><div><p class="eyebrow" data-i18n="process.eyebrow">Процесс</p><h2 data-i18n="process.title">Контроль на каждом этапе</h2></div></div>
+          <div class="process-grid" id="process-carousel" data-mobile-carousel tabindex="0" role="region" aria-roledescription="carousel" data-i18n-aria="carousel.process">
+            <article class="step reveal"><span class="step-num">01</span><h3 data-i18n="process.one.title">Консультация</h3><p data-i18n="process.one.text">Уточняем задачу и подбираем материал под автомобиль.</p></article>
+            <article class="step reveal"><span class="step-num">02</span><h3 data-i18n="process.two.title">Осмотр</h3><p data-i18n="process.two.text">Фиксируем состояние кузова и согласовываем объём работ.</p></article>
+            <article class="step reveal"><span class="step-num">03</span><h3 data-i18n="process.three.title">Установка</h3><p data-i18n="process.three.text">Готовим поверхность и выполняем работу по технологии.</p></article>
+            <article class="step reveal"><span class="step-num">04</span><h3 data-i18n="process.four.title">Контроль</h3><p data-i18n="process.four.text">Проверяем результат и объясняем правила дальнейшего ухода.</p></article>
+          </div>
+          <div class="mobile-carousel-nav" data-mobile-carousel-nav="process-carousel">
+            <span class="mobile-carousel-count" aria-live="polite"><strong>01</strong><i>/ 04</i></span>
+            <span class="mobile-carousel-progress" aria-hidden="true"><i></i></span>
+            <span class="mobile-carousel-arrows"><button type="button" data-mobile-carousel-dir="-1" data-i18n-aria="carousel.previous" aria-label="Предыдущая карточка">←</button><button type="button" data-mobile-carousel-dir="1" data-i18n-aria="carousel.next" aria-label="Следующая карточка">→</button></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section reviews-section" id="reviews">
+        <div class="wrap">
+          <div class="reviews-top">
+            <div class="rating reveal"><strong>5.0</strong><div class="stars">★★★★★</div><span data-i18n="reviews.source">83 оценки · 26 отзывов на Яндекс Картах</span></div>
+            <div class="reviews-intro reveal"><p class="eyebrow" style="color:white" data-i18n="reviews.eyebrow">Говорят клиенты</p><h2 data-i18n="reviews.title">Качество видно. Доверие — измеримо.</h2><p data-i18n="reviews.lead">Отзывы ниже пересказаны по публичной карточке студии; источник указан на каждой карточке.</p><div class="review-controls"><button class="review-arrow interactive" type="button" data-review-dir="-1" aria-label="Предыдущий отзыв">←</button><button class="review-arrow interactive" type="button" data-review-dir="1" aria-label="Следующий отзыв">→</button><div class="review-pagination" id="review-pagination" aria-label="Навигация по отзывам"></div></div></div>
+          </div>
+          <div class="reviews-track" id="reviews-track">
+            <article class="review-card"><div class="review-source"><span>12.09.2025</span><b data-i18n="reviews.platform">Яндекс Карты</b></div><blockquote data-i18n="reviews.one.text">Результат превзошёл ожидания; всё проработали детально.</blockquote><cite>Nadir Myazitov</cite></article>
+            <article class="review-card"><div class="review-source"><span>23.04.2026</span><b data-i18n="reviews.platform">Яндекс Карты</b></div><blockquote data-i18n="reviews.two.text">Отметил качество плёнки и защиту фар.</blockquote><cite>Эдуард Ким</cite></article>
+            <article class="review-card"><div class="review-source"><span>02.09.2025</span><b data-i18n="reviews.platform">Яндекс Карты</b></div><blockquote data-i18n="reviews.three.text">Похвалил сервис, материалы и атермальную плёнку.</blockquote><cite>Умар Хазратов</cite></article>
+            <article class="review-card"><div class="review-source"><span>26.07.2025</span><b data-i18n="reviews.platform">Яндекс Карты</b></div><blockquote data-i18n="reviews.four.text">Тонировка XPEL — одна из лучших в Ташкенте.</blockquote><cite>Mansur Nasirov</cite></article>
+            <article class="review-card"><div class="review-source"><span>05.08.2025</span><b data-i18n="reviews.platform">Яндекс Карты</b></div><blockquote data-i18n="reviews.five.text">Подтвердила оригинальность XPEL и официальный статус.</blockquote><cite>Азиза Умарходжаева</cite></article>
+            <article class="review-card"><div class="review-source"><span>20.05.2020</span><b data-i18n="reviews.platform">Яндекс Карты</b></div><blockquote data-i18n="reviews.six.text">Работу выполнили отлично и точно в срок.</blockquote><cite>Саид Турсунов</cite></article>
+            <article class="review-card"><div class="review-source"><span>04.04.2024</span><b data-i18n="reviews.platform">Яндекс Карты</b></div><blockquote data-i18n="reviews.seven.text">Очень доволен качеством тонировки и плёнки.</blockquote><cite>Дмитрий Сатьянов</cite></article>
+            <article class="review-card"><div class="review-source"><span>06.03.2023</span><b data-i18n="reviews.platform">Яндекс Карты</b></div><blockquote data-i18n="reviews.eight.text">Стоимость оправдана качеством плёнки XPEL.</blockquote><cite>Владимир Васильев</cite></article>
+            <article class="review-card"><div class="review-source"><span>30.06.2024</span><b data-i18n="reviews.platform">Яндекс Карты</b></div><blockquote data-i18n="reviews.nine.text">Сделали быстро, добросовестно и подробно проконсультировали.</blockquote><cite>Антон</cite></article>
+          </div>
+          <p class="review-footnote" data-i18n-html="reviews.footnote">Источник: публичная карточка <a href="https://yandex.uz/maps/org/gloss_technology/225425381892/" target="_blank" rel="noreferrer">Gloss Technology на Яндекс Картах ↗</a></p>
+        </div>
+      </section>
+
+      <section class="section map-section" id="location">
+        <div class="wrap">
+          <div class="section-head reveal"><div><p class="eyebrow" data-i18n="location.eyebrow">Как нас найти</p><h2 data-i18n="location.title">Gloss Technology в Ташкенте</h2></div><p class="lead" data-i18n="location.lead">Изучите район на интерактивной карте или откройте маршрут в привычном сервисе.</p></div>
+          <div class="map-shell reveal">
+            <div class="map-info">
+              <div><h3 data-i18n="location.address">1-й тупик Само, 2</h3><p data-i18n="location.city">Ташкент, Узбекистан</p><div class="map-data"><div><span data-i18n="contact.hours">График</span><strong data-i18n="contact.hoursValue">Ежедневно, 10:00–18:00</strong></div><div><span data-i18n="location.coords">Координаты</span><strong>41.2555 · 69.2473</strong></div></div></div>
+              <div><p class="map-caption" data-i18n="location.mapCaption">Открыть маршрут</p><div class="map-tabs"><a class="map-tab active interactive" href="https://yandex.uz/maps/org/gloss_technology/225425381892/" target="_blank" rel="noreferrer" data-i18n="location.yandex">Яндекс Карты ↗</a><a class="map-tab interactive" href="https://www.google.com/maps/place/Gloss+Technology+Detailing+Solutions/@41.2553472,69.2467194,18.75z/data=!4m12!1m5!3m4!2zNDHCsDE1JzE5LjgiTiA2OcKwMTQnNTAuMyJF!8m2!3d41.2555!4d69.2473!3m5!1s0x38ae6122cf997185:0xb8cef105d44ed23b!8m2!3d41.2545568!4d69.2472455!16s%2Fg%2F11f62zrm8v?entry=ttu&amp;g_ep=EgoyMDI2MDkwMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noreferrer" data-i18n="location.google">Google Maps ↗</a></div></div>
+            </div>
+            <div class="map-stage cursor-safe"><iframe class="map-frame active" title="Gloss Technology на Яндекс Картах" loading="lazy" src="https://yandex.uz/map-widget/v1/?mode=search&amp;oid=225425381892&amp;ol=biz&amp;z=17"></iframe><div class="map-badge"><span class="verified-dot"></span>Gloss Technology</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="contact">
+        <div class="wrap contact-grid">
+          <div class="reveal">
+            <p class="eyebrow" data-i18n="contact.eyebrow">Контакты</p>
+            <h2 data-i18n="contact.title">Ваш автомобиль заслуживает правильной защиты.</h2>
+            <p class="lead" data-i18n="contact.text">Gloss Technology × XPEL. Посмотрите наши работы, позвоните или приезжайте в студию — без форм и ожидания ответа.</p>
+            <div class="contact-lines">
+              <div class="contact-line"><span data-i18n="contact.phone">Телефон</span><a href="tel:+998944181111">+998 94 418 11 11</a></div>
+              <div class="contact-line"><span>Instagram</span><a href="https://www.instagram.com/glosstechnology/" target="_blank" rel="noreferrer">@glosstechnology ↗</a></div>
+              <div class="contact-line"><span data-i18n="contact.address">Адрес</span><a href="https://yandex.uz/maps/org/gloss_technology/225425381892/" target="_blank" rel="noreferrer" data-i18n="contact.addressValue">Ташкент, 1-й тупик Само, 2 ↗</a></div>
+              <div class="contact-line"><span data-i18n="contact.hours">График</span><span data-i18n="contact.hoursValue">Ежедневно, 10:00–18:00</span></div>
+            </div>
+          </div>
+          <aside class="contact-panel cursor-safe reveal" aria-label="Способы связи">
+            <div class="contact-panel-top"><span class="contact-panel-index">GT · 01</span><span class="contact-panel-status"><i></i><span data-i18n="contact.status">На связи ежедневно</span></span></div>
+            <h3 data-i18n="contact.panelTitle">Выберите удобный способ</h3>
+            <a class="contact-action contact-action-social interactive magnetic" href="https://t.me/glosstechnology" target="_blank" rel="noreferrer"><span><small>Telegram</small><strong>@glosstechnology</strong></span><b>↗</b></a>
+            <a class="contact-action contact-action-social interactive magnetic" href="https://www.instagram.com/glosstechnology/" target="_blank" rel="noreferrer"><span><small>Instagram</small><strong>@glosstechnology</strong></span><b>↗</b></a>
+            <a class="contact-action contact-action-social interactive magnetic" href="https://www.facebook.com/glosstechnology/" target="_blank" rel="noreferrer"><span><small>Facebook</small><strong>Gloss Technology</strong></span><b>↗</b></a>
+            <a class="contact-action interactive magnetic" href="tel:+998944181111"><span><small data-i18n="contact.phone">Телефон</small><strong>+998 94 418 11 11</strong></span><b>↗</b></a>
+            <a class="contact-action interactive magnetic" href="https://yandex.uz/maps/org/gloss_technology/225425381892/" target="_blank" rel="noreferrer"><span><small data-i18n="contact.address">Адрес</small><strong data-i18n="contact.routeShort">Открыть маршрут</strong></span><b>↗</b></a>
+            <p class="contact-panel-note" data-i18n="contact.note">Запись — в Telegram. Актуальные работы и новости студии — в Instagram.</p>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer><div class="wrap footer-row"><span>© 2026 Gloss Technology</span><div class="footer-links"><a href="https://t.me/glosstechnology" target="_blank" rel="noreferrer">Telegram</a><a href="https://www.instagram.com/glosstechnology/" target="_blank" rel="noreferrer">Instagram</a><a href="https://www.facebook.com/glosstechnology/" target="_blank" rel="noreferrer">Facebook</a><a href="https://www.xpel.com/installers/Uzbekistan/Tashkent/Tashkent" target="_blank" rel="noreferrer">XPEL</a></div></div></footer>
+    <button class="back-to-top interactive" id="back-to-top" type="button" aria-label="Вернуться наверх"><span>↑</span></button>
+    <div class="mobile-actions"><a href="tel:+998944181111" data-i18n="mobile.call">Позвонить</a><a href="https://t.me/glosstechnology" target="_blank" rel="noreferrer" data-i18n="mobile.telegram">Telegram</a></div>
+
+    <script>
+      const translations = {
+        ru: {
+          "nav.services":"Услуги","nav.packages":"Пакеты защиты","nav.projects":"Проекты","nav.contacts":"Контакты",
+          "common.calculate":"Записаться","common.projects":"Посмотреть проекты","common.more":"Подробнее","common.request":"Записаться",
+          "hero.kicker":"Официальный дистрибьютор XPEL в Узбекистане","hero.title":"Защищаем автомобиль.<br><em>Не меняя его.</em>","hero.text":"Оригинальные материалы XPEL, профессиональная установка и контроль качества на каждом этапе — в Ташкенте.","hero.side":"Ташкент · ежедневно 10:00–18:00",
+          "proof.distributor":"Официальный дистрибьютор","proof.rating":"рейтинг на Яндекс Картах","proof.reviews":"оценки клиентов","proof.community":"автомобильное сообщество",
+          "services.eyebrow":"Что мы защищаем","services.title":"Технологии для каждой поверхности","services.lead":"От незаметной защиты кузова до восстановления глубины цвета — подбираем решение под автомобиль и сценарий эксплуатации.",
+          "services.ppf.title":"Защитная плёнка PPF","services.ppf.text":"Прозрачный самовосстанавливающийся барьер от сколов, царапин и дорожного воздействия.","services.tint.title":"Тонировка","services.tint.text":"Защита от жары и ультрафиолета без потери оптической прозрачности.","services.ceramic.title":"Керамика","services.ceramic.text":"Глубокий блеск, гидрофобный эффект и более простой регулярный уход.","services.polish.title":"Полировка","services.polish.text":"Коррекция дефектов ЛКП и восстановление чистоты отражения.","services.interior.title":"Защита салона","services.interior.text":"Плёнки и покрытия для экранов, декоративных панелей, кожи и текстиля.",
+          "xpel.eyebrow":"Оригинальные материалы","xpel.title":"XPEL. Защита, которую почти не видно.","xpel.text":"Gloss Technology официально представляет XPEL в Узбекистане. Подбираем продукт под тип поверхности, желаемый финиш и условия эксплуатации автомобиля.","xpel.ultimate":"Глянцевая защита кузова","xpel.stealth":"Сатиновый финиш и защита","xpel.prime":"Комфорт и защита стёкол","xpel.fusion":"Керамическое покрытие",
+          "packages.eyebrow":"Пакеты PPF","packages.title":"Выберите уровень защиты","packages.lead":"От самых уязвимых зон до полного кузова — без компромиссов в материале и установке.",
+          "packages.one.tag":"Точечная защита","packages.one.title":"Зоны риска","packages.one.text":"Для элементов, которые первыми принимают дорожные повреждения.","packages.one.a":"Передний бампер","packages.one.b":"Оптика и зеркала",
+          "packages.two.tag":"Оптимальный выбор","packages.two.title":"Полный фронт","packages.two.text":"Комплексная защита всей передней части автомобиля.","packages.two.a":"Бампер, капот и крылья","packages.two.b":"Оптика и зеркала",
+          "packages.three.tag":"Максимум","packages.three.title":"Весь кузов","packages.three.text":"Полная защита окрашенных элементов с единым визуальным финишем.","packages.three.a":"Все внешние панели","packages.three.b":"Глянцевый или сатиновый финиш",
+          "project.eyebrow":"Выбранный проект","project.title":"Точная работа. Незаметный результат.","project.text":"Полная защита кузова · XPEL PPF · Ташкент",
+          "process.eyebrow":"Процесс","process.title":"Контроль на каждом этапе","process.one.title":"Консультация","process.one.text":"Уточняем задачу и подбираем материал под автомобиль.","process.two.title":"Осмотр","process.two.text":"Фиксируем состояние кузова и согласовываем объём работ.","process.three.title":"Установка","process.three.text":"Готовим поверхность и выполняем работу по технологии.","process.four.title":"Контроль","process.four.text":"Проверяем результат и объясняем правила дальнейшего ухода.",
+          "reviews.source":"83 оценки на Яндекс Картах","reviews.platform":"Яндекс Карты","reviews.quote":"«Реально следят не только за сервисом, но и за качеством материалов»","reviews.author":"Отзыв клиента Gloss Technology",
+          "contact.eyebrow":"Связаться","contact.title":"Подберём защиту для вашего автомобиля","contact.text":"Расскажите, какой у вас автомобиль и что хотите защитить. Предложим подходящий вариант без лишних услуг.","contact.phone":"Телефон","contact.address":"Адрес","contact.addressValue":"Ташкент, 1-й тупик Само, 2 ↗","contact.hours":"График","contact.hoursValue":"Ежедневно, 10:00–18:00",
+          "form.title":"Записаться в студию","form.name":"Имя","form.phone":"Телефон","form.service":"Интересующая услуга","form.choose":"Выберите услугу","form.submit":"Записаться","form.note":"Нажимая кнопку, вы соглашаетесь на обработку контактных данных.","form.sent":"Спасибо. Заявка принята.","mobile.call":"Позвонить","mobile.write":"Записаться",
+          "brand.partner":"Официальный дистрибьютор","nav.reviews":"Отзывы","nav.location":"Адрес","common.calculate":"Записаться","common.request":"Записаться","hero.official":"Официальная дистрибуция XPEL для Узбекистана","proof.distributor":"Официальный дистрибьютор в Узбекистане","proof.community":"подписчиков в Instagram",
+          "xpel.eyebrow":"Статус подтверждён XPEL","xpel.title":"Официальный дистрибьютор XPEL в Узбекистане","xpel.text":"Gloss Technology официально представляет технологии защиты XPEL в стране: оригинальная продукция, правильный подбор и установка по стандартам бренда.","xpel.verify":"Проверить на XPEL.com","packages.lead":"От самых уязвимых зон до полного кузова — без компромиссов в материале и установке.",
+          "projects.eyebrow":"Избранные работы","projects.title":"<span>Проекты</span><span class=\"brand-name\">Gloss Technology</span>","projects.count":"03 проекта","projects.lead":"Показываем не только финальный блеск, но и технологию, которая стоит за результатом.","projects.one.title":"Полная защита кузова","projects.one.text":"XPEL ULTIMATE PLUS · прозрачный глянец","projects.two.title":"Тонировка без искажений","projects.two.text":"XPEL PRIME · защита от тепла и UV","projects.three.title":"Глубокий цвет и гидрофоб","projects.three.text":"XPEL FUSION PLUS · керамическое покрытие",
+          "reviews.source":"83 оценки · 26 отзывов на Яндекс Картах","reviews.eyebrow":"Говорят клиенты","reviews.title":"Качество видно. Доверие — измеримо.","reviews.lead":"Отзывы ниже пересказаны по публичной карточке студии; источник указан на каждой карточке.","reviews.one.text":"Результат превзошёл ожидания; всё проработали детально.","reviews.two.text":"Отметил качество плёнки и защиту фар.","reviews.three.text":"Похвалил сервис, материалы и атермальную плёнку.","reviews.four.text":"Тонировка XPEL — одна из лучших в Ташкенте.","reviews.five.text":"Подтвердила оригинальность XPEL и официальный статус.","reviews.six.text":"Работу выполнили отлично и точно в срок.","reviews.seven.text":"Очень доволен качеством тонировки и плёнки.","reviews.eight.text":"Стоимость оправдана качеством плёнки XPEL.","reviews.nine.text":"Сделали быстро, добросовестно и подробно проконсультировали.","reviews.footnote":"Источник: публичная карточка <a href=\"https://yandex.uz/maps/org/gloss_technology/225425381892/\" target=\"_blank\" rel=\"noreferrer\">Gloss Technology на Яндекс Картах ↗</a>",
+          "nav.instagram":"Instagram ↗","common.instagram":"Instagram GT ↗","projects.instagram":"Все проекты в Instagram ↗",
+          "location.eyebrow":"Как нас найти","location.title":"Gloss Technology в Ташкенте","location.lead":"Изучите район на интерактивной карте или откройте маршрут в привычном сервисе.","location.address":"1-й тупик Само, 2","location.city":"Ташкент, Узбекистан","location.coords":"Координаты","location.route":"Построить маршрут","location.mapCaption":"Открыть маршрут","location.yandex":"Яндекс Карты ↗","location.google":"Google Maps ↗",
+          "contact.eyebrow":"Контакты","contact.title":"Ваш автомобиль заслуживает правильной защиты.","contact.text":"Gloss Technology × XPEL. Посмотрите наши работы, позвоните или приезжайте в студию — без форм и ожидания ответа.","contact.status":"На связи ежедневно","contact.panelTitle":"Выберите удобный способ","contact.routeShort":"Открыть маршрут","contact.note":"Запись — в Telegram. Актуальные работы и новости студии — в Instagram.","mobile.instagram":"Instagram","mobile.telegram":"Telegram","carousel.services":"Карусель услуг","carousel.packages":"Карусель пакетов защиты","carousel.process":"Этапы работы","carousel.previous":"Предыдущая карточка","carousel.next":"Следующая карточка"
+        },
+        en: {
+          "nav.services":"Services","nav.packages":"Protection packages","nav.projects":"Projects","nav.contacts":"Contact",
+          "common.calculate":"Book now","common.projects":"View projects","common.more":"Learn more","common.request":"Book now",
+          "hero.kicker":"Official XPEL distributor in Uzbekistan","hero.title":"We protect your car.<br><em>Without changing it.</em>","hero.text":"Genuine XPEL materials, professional installation and quality control at every stage — in Tashkent.","hero.side":"Tashkent · daily 10:00–18:00",
+          "proof.distributor":"Official distributor","proof.rating":"rating on Yandex Maps","proof.reviews":"customer ratings","proof.community":"automotive community",
+          "services.eyebrow":"What we protect","services.title":"Technology for every surface","services.lead":"From invisible paint protection to restoring colour depth — every solution is matched to your vehicle and the way you drive.",
+          "services.ppf.title":"Paint Protection Film","services.ppf.text":"A clear, self-healing barrier against chips, scratches and road wear.","services.tint.title":"Window tint","services.tint.text":"Heat and UV protection without compromising optical clarity.","services.ceramic.title":"Ceramic coating","services.ceramic.text":"Deeper gloss, hydrophobic performance and easier routine care.","services.polish.title":"Paint correction","services.polish.text":"Correction of paint defects and restoration of a clean reflection.","services.interior.title":"Interior protection","services.interior.text":"Films and coatings for screens, trim, leather and textiles.",
+          "xpel.eyebrow":"Genuine materials","xpel.title":"XPEL. Protection you can barely see.","xpel.text":"Gloss Technology officially represents XPEL in Uzbekistan. We match each product to the surface, finish and driving conditions.","xpel.ultimate":"Gloss paint protection","xpel.stealth":"Satin finish and protection","xpel.prime":"Comfort and window protection","xpel.fusion":"Ceramic coating",
+          "packages.eyebrow":"PPF packages","packages.title":"Choose your protection level","packages.lead":"From high-impact zones to the full body — with no compromise in material or installation.",
+          "packages.one.tag":"Targeted protection","packages.one.title":"High-impact zones","packages.one.text":"For the areas that take road damage first.","packages.one.a":"Front bumper","packages.one.b":"Lights and mirrors",
+          "packages.two.tag":"Recommended","packages.two.title":"Full front","packages.two.text":"Complete protection for the entire front of the vehicle.","packages.two.a":"Bumper, bonnet and fenders","packages.two.b":"Lights and mirrors",
+          "packages.three.tag":"Maximum","packages.three.title":"Full body","packages.three.text":"Complete protection for all painted panels with one consistent finish.","packages.three.a":"All exterior panels","packages.three.b":"Gloss or satin finish",
+          "project.eyebrow":"Selected project","project.title":"Precise work. Invisible result.","project.text":"Full-body protection · XPEL PPF · Tashkent",
+          "process.eyebrow":"Process","process.title":"Control at every stage","process.one.title":"Consultation","process.one.text":"We define the task and match the material to your vehicle.","process.two.title":"Inspection","process.two.text":"We document the paint condition and agree on the scope.","process.three.title":"Installation","process.three.text":"We prepare every surface and install to specification.","process.four.title":"Quality control","process.four.text":"We inspect the result and explain the correct aftercare.",
+          "reviews.source":"83 ratings on Yandex Maps","reviews.platform":"Yandex Maps","reviews.quote":"“They genuinely care about both the service and the quality of the materials”","reviews.author":"Gloss Technology customer review",
+          "contact.eyebrow":"Contact","contact.title":"Let’s choose the right protection for your car","contact.text":"Tell us what you drive and what you want to protect. We will recommend the right solution without unnecessary extras.","contact.phone":"Phone","contact.address":"Address","contact.addressValue":"2, Samo 1st Dead End, Tashkent ↗","contact.hours":"Hours","contact.hoursValue":"Daily, 10:00–18:00",
+          "form.title":"Book your visit","form.name":"Name","form.phone":"Phone","form.service":"Service","form.choose":"Choose a service","form.submit":"Book now","form.note":"By submitting, you consent to the processing of your contact details.","form.sent":"Thank you. Your request has been received.","mobile.call":"Call","mobile.write":"Book now",
+          "brand.partner":"Official distributor","nav.reviews":"Reviews","nav.location":"Location","common.calculate":"Book now","common.request":"Book now","hero.official":"Official XPEL distribution for Uzbekistan","proof.distributor":"Official distributor in Uzbekistan","proof.community":"Instagram followers",
+          "xpel.eyebrow":"Status verified by XPEL","xpel.title":"Official XPEL distributor in Uzbekistan","xpel.text":"Gloss Technology officially represents XPEL protection technologies in Uzbekistan: genuine products, correct specification and installation to brand standards.","xpel.verify":"Verify on XPEL.com","packages.lead":"From high-impact zones to the full body — with no compromise in material or installation.",
+          "projects.eyebrow":"Selected work","projects.title":"<span>Projects by</span><span class=\"brand-name\">Gloss Technology</span>","projects.count":"03 projects","projects.lead":"We show not only the final shine, but also the technology behind the result.","projects.one.title":"Full-body protection","projects.one.text":"XPEL ULTIMATE PLUS · clear gloss","projects.two.title":"Distortion-free tint","projects.two.text":"XPEL PRIME · heat and UV protection","projects.three.title":"Deeper colour and hydrophobics","projects.three.text":"XPEL FUSION PLUS · ceramic coating",
+          "reviews.source":"83 ratings · 26 reviews on Yandex Maps","reviews.eyebrow":"Customer feedback","reviews.title":"Quality is visible. Trust is measurable.","reviews.lead":"The reviews below are paraphrased from the studio’s public listing; every card names its source.","reviews.one.text":"The result exceeded expectations; every detail was handled.","reviews.two.text":"Praised the film quality and headlight protection.","reviews.three.text":"Praised the service, materials and heat-control film.","reviews.four.text":"XPEL tint is among the best in Tashkent.","reviews.five.text":"Confirmed genuine XPEL products and official status.","reviews.six.text":"The work was excellent and finished on time.","reviews.seven.text":"Very satisfied with the tint and film quality.","reviews.eight.text":"The XPEL film quality justifies the price.","reviews.nine.text":"Fast, conscientious work with a detailed consultation.","reviews.footnote":"Source: public <a href=\"https://yandex.uz/maps/org/gloss_technology/225425381892/\" target=\"_blank\" rel=\"noreferrer\">Gloss Technology listing on Yandex Maps ↗</a>",
+          "nav.instagram":"Instagram ↗","common.instagram":"GT on Instagram ↗","projects.instagram":"All projects on Instagram ↗",
+          "location.eyebrow":"Find us","location.title":"Gloss Technology in Tashkent","location.lead":"Explore the area on the interactive map or open directions in your preferred service.","location.address":"2, Samo 1st Dead End","location.city":"Tashkent, Uzbekistan","location.coords":"Coordinates","location.route":"Get directions","location.mapCaption":"Open directions","location.yandex":"Yandex Maps ↗","location.google":"Google Maps ↗",
+          "contact.eyebrow":"Contacts","contact.title":"Your car deserves the right protection.","contact.text":"Gloss Technology × XPEL. See our work, call us or visit the studio — no forms and no waiting for a reply.","contact.status":"Available daily","contact.panelTitle":"Choose how to contact us","contact.routeShort":"Open directions","contact.note":"Book via Telegram. Current projects and studio news are on Instagram.","mobile.instagram":"Instagram","mobile.telegram":"Telegram","carousel.services":"Services carousel","carousel.packages":"Protection packages carousel","carousel.process":"Work stages","carousel.previous":"Previous card","carousel.next":"Next card"
+        },
+        uz: {
+          "nav.services":"Xizmatlar","nav.packages":"Himoya paketlari","nav.projects":"Loyihalar","nav.contacts":"Aloqa",
+          "common.calculate":"Yozilish","common.projects":"Loyihalarni ko‘rish","common.more":"Batafsil","common.request":"Yozilish",
+          "hero.kicker":"O‘zbekistondagi XPEL rasmiy distribyutori","hero.title":"Avtomobilingizni himoya qilamiz.<br><em>Uni o‘zgartirmaymiz.</em>","hero.text":"Original XPEL materiallari, professional o‘rnatish va har bir bosqichda sifat nazorati — Toshkentda.","hero.side":"Toshkent · har kuni 10:00–18:00",
+          "proof.distributor":"Rasmiy distribyutor","proof.rating":"Yandex Xaritalardagi reyting","proof.reviews":"mijozlar bahosi","proof.community":"avtomobil hamjamiyati",
+          "services.eyebrow":"Nimalarni himoya qilamiz","services.title":"Har bir sirt uchun texnologiya","services.lead":"Kuzovning ko‘rinmas himoyasidan rang chuqurligini tiklashgacha — yechim avtomobil va foydalanish sharoitiga moslanadi.",
+          "services.ppf.title":"PPF himoya plyonkasi","services.ppf.text":"Tosh, tirnalish va yo‘l ta’siriga qarshi shaffof, o‘zini tiklovchi to‘siq.","services.tint.title":"Oynalarni qoraytirish","services.tint.text":"Optik tiniqlikni saqlagan holda issiqlik va ultrabinafshadan himoya.","services.ceramic.title":"Keramik qoplama","services.ceramic.text":"Chuqur jilo, gidrofob effekt va oson kundalik parvarish.","services.polish.title":"Polirovka","services.polish.text":"Lak-bo‘yoq nuqsonlarini tuzatish va tiniq aksni tiklash.","services.interior.title":"Salon himoyasi","services.interior.text":"Ekran, dekorativ panel, charm va matolar uchun plyonka hamda qoplamalar.",
+          "xpel.eyebrow":"Original materiallar","xpel.title":"XPEL. Deyarli ko‘rinmaydigan himoya.","xpel.text":"Gloss Technology O‘zbekistonda XPEL brendini rasman taqdim etadi. Mahsulot sirt turi, kerakli ko‘rinish va foydalanish sharoitiga qarab tanlanadi.","xpel.ultimate":"Kuzov uchun yaltiroq himoya","xpel.stealth":"Satin ko‘rinish va himoya","xpel.prime":"Oynalar uchun qulaylik va himoya","xpel.fusion":"Keramik qoplama",
+          "packages.eyebrow":"PPF paketlari","packages.title":"Himoya darajasini tanlang","packages.lead":"Eng zaif zonalardan butun kuzovgacha — material va o‘rnatishda murosasiz.",
+          "packages.one.tag":"Nuqtali himoya","packages.one.title":"Xavf zonalari","packages.one.text":"Yo‘l zarbalarini birinchi bo‘lib qabul qiladigan qismlar uchun.","packages.one.a":"Old bamper","packages.one.b":"Faralar va ko‘zgular",
+          "packages.two.tag":"Tavsiya etiladi","packages.two.title":"To‘liq old qism","packages.two.text":"Avtomobil old qismini kompleks himoya qilish.","packages.two.a":"Bamper, kapot va qanotlar","packages.two.b":"Faralar va ko‘zgular",
+          "packages.three.tag":"Maksimum","packages.three.title":"Butun kuzov","packages.three.text":"Barcha bo‘yalgan tashqi panellarni yagona ko‘rinishda to‘liq himoya qilish.","packages.three.a":"Barcha tashqi panellar","packages.three.b":"Yaltiroq yoki satin ko‘rinish",
+          "project.eyebrow":"Tanlangan loyiha","project.title":"Aniq ish. Ko‘rinmas natija.","project.text":"Kuzovni to‘liq himoyalash · XPEL PPF · Toshkent",
+          "process.eyebrow":"Jarayon","process.title":"Har bir bosqichda nazorat","process.one.title":"Maslahat","process.one.text":"Vazifani aniqlaymiz va avtomobilga mos material tanlaymiz.","process.two.title":"Ko‘rik","process.two.text":"Kuzov holatini qayd etib, ish hajmini kelishamiz.","process.three.title":"O‘rnatish","process.three.text":"Sirtni tayyorlab, ishni texnologiya asosida bajaramiz.","process.four.title":"Sifat nazorati","process.four.text":"Natijani tekshirib, keyingi parvarish qoidalarini tushuntiramiz.",
+          "reviews.source":"Yandex Xaritalarda 83 ta baho","reviews.platform":"Yandex Xaritalar","reviews.quote":"“Bu yerda servis bilan birga materiallar sifatiga ham jiddiy e’tibor beriladi”","reviews.author":"Gloss Technology mijozi fikri",
+          "contact.eyebrow":"Bog‘lanish","contact.title":"Avtomobilingiz uchun mos himoyani tanlaymiz","contact.text":"Avtomobilingiz va nimani himoya qilmoqchi ekaningizni ayting. Keraksiz xizmatlarsiz mos yechimni tavsiya qilamiz.","contact.phone":"Telefon","contact.address":"Manzil","contact.addressValue":"Toshkent, Samo 1-berk ko‘chasi, 2 ↗","contact.hours":"Ish vaqti","contact.hoursValue":"Har kuni, 10:00–18:00",
+          "form.title":"Studiyaga yozilish","form.name":"Ism","form.phone":"Telefon","form.service":"Qiziqtirgan xizmat","form.choose":"Xizmatni tanlang","form.submit":"Yozilish","form.note":"Tugmani bosish orqali kontakt ma’lumotlaringizni qayta ishlashga rozilik bildirasiz.","form.sent":"Rahmat. Arizangiz qabul qilindi.","mobile.call":"Qo‘ng‘iroq","mobile.write":"Yozilish",
+          "brand.partner":"Rasmiy distribyutor","nav.reviews":"Sharhlar","nav.location":"Manzil","common.calculate":"Yozilish","common.request":"Yozilish","hero.official":"XPEL’ning O‘zbekiston bo‘yicha rasmiy distribyutsiyasi","proof.distributor":"O‘zbekistondagi rasmiy distribyutor","proof.community":"Instagram obunachilari",
+          "xpel.eyebrow":"Maqom XPEL tomonidan tasdiqlangan","xpel.title":"O‘zbekistondagi XPEL rasmiy distribyutori","xpel.text":"Gloss Technology O‘zbekistonda XPEL himoya texnologiyalarini rasman taqdim etadi: original mahsulotlar, to‘g‘ri tanlov va brend standartlari bo‘yicha o‘rnatish.","xpel.verify":"XPEL.com’da tekshirish","packages.lead":"Eng zaif zonalardan butun kuzovgacha — material va o‘rnatishda murosasiz.",
+          "projects.eyebrow":"Tanlangan ishlar","projects.title":"<span>Loyihalar</span><span class=\"brand-name\">Gloss Technology</span>","projects.count":"03 loyiha","projects.lead":"Faqat yakuniy jiloni emas, natija ortidagi texnologiyani ham ko‘rsatamiz.","projects.one.title":"Kuzovni to‘liq himoyalash","projects.one.text":"XPEL ULTIMATE PLUS · shaffof jilo","projects.two.title":"Buzilishsiz tonirovka","projects.two.text":"XPEL PRIME · issiqlik va UV himoyasi","projects.three.title":"Chuqur rang va gidrofob effekt","projects.three.text":"XPEL FUSION PLUS · keramik qoplama",
+          "reviews.source":"Yandex Xaritalarda 83 baho · 26 sharh","reviews.eyebrow":"Mijozlar fikri","reviews.title":"Sifat ko‘rinadi. Ishonch o‘lchanadi.","reviews.lead":"Quyidagi sharhlar studiyaning ochiq kartochkasidan mazmunan qayta bayon qilingan; manba har bir kartada ko‘rsatilgan.","reviews.one.text":"Natija kutilganidan yuqori bo‘ldi; hamma detal puxta ishlangan.","reviews.two.text":"Plyonka sifati va faralar himoyasini alohida maqtadi.","reviews.three.text":"Servis, materiallar va atermal plyonkani maqtadi.","reviews.four.text":"XPEL tonirovkasi Toshkentdagi eng yaxshilaridan biri.","reviews.five.text":"Original XPEL va rasmiy maqomni tasdiqladi.","reviews.six.text":"Ish a’lo va o‘z vaqtida bajarildi.","reviews.seven.text":"Tonirovka va plyonka sifatidan juda mamnun.","reviews.eight.text":"XPEL plyonkasi sifati narxini oqlaydi.","reviews.nine.text":"Tez, vijdonan ishlashdi va batafsil maslahat berishdi.","reviews.footnote":"Manba: Yandex Xaritalardagi ochiq <a href=\"https://yandex.uz/maps/org/gloss_technology/225425381892/\" target=\"_blank\" rel=\"noreferrer\">Gloss Technology kartochkasi ↗</a>",
+          "nav.instagram":"Instagram ↗","common.instagram":"GT Instagram’da ↗","projects.instagram":"Barcha loyihalar Instagram’da ↗",
+          "location.eyebrow":"Bizni toping","location.title":"Toshkentdagi Gloss Technology","location.lead":"Hududni interaktiv xaritada ko‘ring yoki qulay servisda yo‘nalishni oching.","location.address":"Samo 1-berk ko‘chasi, 2","location.city":"Toshkent, O‘zbekiston","location.coords":"Koordinatalar","location.route":"Yo‘nalish qurish","location.mapCaption":"Yo‘nalishni ochish","location.yandex":"Yandex Xaritalar ↗","location.google":"Google Maps ↗",
+          "contact.eyebrow":"Aloqa","contact.title":"Avtomobilingiz to‘g‘ri himoyaga loyiq.","contact.text":"Gloss Technology × XPEL. Ishlarimizni ko‘ring, qo‘ng‘iroq qiling yoki studiyaga keling — shakllar va javob kutishsiz.","contact.status":"Har kuni aloqadamiz","contact.panelTitle":"Qulay aloqa usulini tanlang","contact.routeShort":"Yo‘nalishni ochish","contact.note":"Yozilish — Telegram’da. Yangi loyihalar va studiya yangiliklari Instagram’da.","mobile.instagram":"Instagram","mobile.telegram":"Telegram","carousel.services":"Xizmatlar karuseli","carousel.packages":"Himoya paketlari karuseli","carousel.process":"Ish bosqichlari","carousel.previous":"Oldingi karta","carousel.next":"Keyingi karta"
+        }
+      };
+
+      const root = document.documentElement;
+      const language = document.getElementById("language");
+      const themeToggle = document.getElementById("theme-toggle");
+      const menuToggle = document.getElementById("menu-toggle");
+      const nav = document.getElementById("main-nav");
+      const metaTheme = document.querySelector('meta[name="theme-color"]');
+
+      function setLanguage(lang) {
+        const dict = translations[lang] || translations.ru;
+        root.classList.add("lang-switching");
+        root.lang = lang;
+        document.querySelectorAll("[data-i18n]").forEach((node) => {
+          const value = dict[node.dataset.i18n];
+          if (value) node.textContent = value;
+        });
+        document.querySelectorAll("[data-i18n-html]").forEach((node) => {
+          const value = dict[node.dataset.i18nHtml];
+          if (value) node.innerHTML = value;
+        });
+        document.querySelectorAll("[data-i18n-aria]").forEach((node) => {
+          const value = dict[node.dataset.i18nAria];
+          if (value) node.setAttribute("aria-label", value);
+        });
+        localStorage.setItem("gt-language", lang);
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          root.classList.remove("lang-switching");
+          dispatchEvent(new Event("resize"));
+        }));
+      }
+
+      function setTheme(theme) {
+        root.dataset.theme = theme;
+        metaTheme.setAttribute("content", theme === "dark" ? "#090909" : "#f4f4f2");
+        localStorage.setItem("gt-theme", theme);
+      }
+
+      setTheme("dark");
+      const savedLanguage = localStorage.getItem("gt-language") || "ru";
+      language.value = savedLanguage;
+      setLanguage(savedLanguage);
+
+      language.addEventListener("change", (event) => setLanguage(event.target.value));
+      themeToggle.addEventListener("click", () => setTheme("dark"));
+      menuToggle.addEventListener("click", () => {
+        const open = nav.classList.toggle("open");
+        menuToggle.setAttribute("aria-expanded", String(open));
+      });
+      nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => {
+        nav.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+      }));
+
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add("visible"); });
+      }, { threshold: 0.08 });
+      document.querySelectorAll(".reveal").forEach((node) => revealObserver.observe(node));
+    </script>
+    <script src="assets/v2.js"></script>
+  </body>
+</html>
